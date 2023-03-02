@@ -31,8 +31,7 @@ const deploymentUrl = await prepareTactDeployment(
 
 ### Node.js
 1. Navigate to `example`
-2. Run `npm install`
-3. Run `npm link ../`
+3. Run `yarn link "@tact-lang/deployer"`
 4. Run `ts-node index.ts`
 
 ## 📔 License

@@ -1,19 +1,13 @@
 {
   "name": "@tact-lang/deployer",
-  "version": "0.5.0",
+  "version": "0.0.1",
   "description": "Tact deployer SDK",
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ],
-  "main": "./lib/index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "build": "npm run lint && rimraf ./lib && tsc",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "npx tslint -p tsconfig.json",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src"
+    "build": "rm -rf dist && tsc"
   },
   "repository": {
     "type": "git",
