@@ -3,12 +3,14 @@ An SDK to prepare deployment of a tact package
 
 ### Installation
 ```
-npm install @tact-lang/tact-deployer-sdk
+npm install @tact-lang/deployer
 ```
 
 ### Usage
 
 ```typescript
+import { prepareTactDeployment } from "@tact-lang/deployer";
+
 const pkg = fs.readFileSync('my.pkg')
 const data = fs.readFileSync('data.boc');
 
@@ -19,7 +21,6 @@ const deploymentUrl = await prepareTactDeployment(
 
   console.log(deploymentUrl);
   // https://verifier.ton.org/tactDeployer/QmRwiQbwjZqNwwUhhZfaSnHUr4bkrGF6cRXARkuMbZaJVD
-
 ```
 
 ## 👀 Demo

@@ -1,4 +1,4 @@
-import { prepareTactDeployment } from "@tact-lang/tact-deployer-sdk";
+import { prepareTactDeployment } from "@tact-lang/deployer";
 
 (async () => {
   const deploymentUrl = await prepareTactDeployment(
