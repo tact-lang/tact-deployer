@@ -3,7 +3,7 @@ A lib to prepare deployment of a tact package
 
 ### Installation
 ```
-npm install @tact-lang/deployer
+yarn add @tact-lang/deployer
 ```
 
 ### Usage
@@ -27,7 +27,7 @@ const deploymentUrl = await prepareTactDeployment(
 1. Clone this repo
 2. Run `yarn`
 3. Run `yarn build`
-4. Run `npm link`
+4. Run `yarn link`
 
 ### Node.js
 1. Navigate to `example`
