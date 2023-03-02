@@ -9,9 +9,12 @@ npm install @tact-lang/tact-deployer-sdk
 ### Usage
 
 ```typescript
+const pkg = fs.readFileSync('my.pkg')
+const data = fs.readFileSync('data.boc');
+
 const deploymentUrl = await prepareTactDeployment(
-    Buffer.from("somepkg"),
-    Buffer.from("somedddOtherpkg")
+    pkg,
+    data
   );
 
   console.log(deploymentUrl);
