@@ -1,5 +1,5 @@
-# Tact Deployer SDK
-An SDK to prepare deployment of a tact package
+# Tact Deployer
+A lib to prepare deployment of a tact package
 
 ### Installation
 ```
