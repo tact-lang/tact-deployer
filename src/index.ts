@@ -1,1 +1,1 @@
-export * from "./tact-deployer";
+export * from "./deployer";

@@ -4,11 +4,15 @@
     "module": "commonjs",
     "declaration": true,
     "outDir": "./dist",
-    "strict": false,
+    "strict": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "isolatedModules": true
   },
-  "include": ["src"],
-  "exclude": ["src/demo", "build", "example", "node_modules", "lib"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "**/**.spec.ts"
+  ]
 }
