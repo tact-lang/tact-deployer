@@ -36,5 +36,5 @@ export async function prepareTactDeployment(
     headers: form.getHeaders(),
   });
 
-  return res.text();
+  return res.json();
 }
