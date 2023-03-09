@@ -1,27 +1,34 @@
 import FormData from "form-data";
-import axios from 'axios';
-import * as z from 'zod';
+import axios from "axios";
+import * as z from "zod";
 
 const configScheme = z.object({
   backends: z.array(z.string()),
+  backendsTestnet: z.array(z.string()),
 });
 
-const configUrl = "https://raw.githubusercontent.com/ton-community/contract-verifier-config/main/config.json";
+const configUrl =
+  "https://raw.githubusercontent.com/ton-community/contract-verifier-config/main/config.json";
 
 function randomFromArray<T>(arr: T[]) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-async function fetchBackend() {
-  let parsed = configScheme.parse(await axios.get(configUrl).then((_res) => _res.data));
-  return randomFromArray(parsed.backends);
+async function fetchBackend(testnet?: boolean) {
+  let parsed = configScheme.parse(
+    await axios.get(configUrl).then((_res) => _res.data)
+  );
+  return randomFromArray(testnet ? parsed.backendsTestnet : parsed.backends);
 }
 
 // Returns a URL for deployment
-export async function prepareTactDeployment(args: { pkg: Buffer, data: Buffer }): Promise<string> {
-
+export async function prepareTactDeployment(args: {
+  pkg: Buffer;
+  data: Buffer;
+  testnet?: boolean;
+}): Promise<string> {
   // Fetch backend
-  const backend = await fetchBackend();
+  const backend = await fetchBackend(args.testnet);
 
   // Upload files
   const form = new FormData();
@@ -36,7 +43,7 @@ export async function prepareTactDeployment(args: { pkg: Buffer, data: Buffer })
   const res = await axios.post(`${backend}/prepareTactDeployment`, form, {
     headers: form.getHeaders(),
   });
-  if (typeof res.data !== 'string') {
+  if (typeof res.data !== "string") {
     throw new Error(`Unexpected response from backend: ${res.data}`);
   }
 
