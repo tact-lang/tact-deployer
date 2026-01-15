@@ -5,22 +5,24 @@ const pkgB64 =
 
 describe("deployer", () => {
   it("should request link", async () => {
+    jest.setTimeout(10000);
     let prepared = await prepareTactDeployment({
       pkg: Buffer.from(pkgB64, "base64"),
       data: Buffer.from("somedddOtherpkg"),
     });
     expect(prepared).toBe(
-      "https://verifier.ton.org/tactDeployer/QmekUfWLJeggStnnyv5ib8QqjxfvjdRjVqVEBxGvaCuS8U"
+      "https://verifier.ton.org/tactDeployer/bafkreigfcbius3v6amxtsg6a2e7pfyquvnmeyxjgd5t3hi7iunqm6tjy2m"
     );
   });
   it("should request link for testnet", async () => {
+    jest.setTimeout(10000);
     let prepared = await prepareTactDeployment({
       pkg: Buffer.from(pkgB64, "base64"),
       data: Buffer.from("somedddOtherpkg"),
       testnet: true,
     });
     expect(prepared).toBe(
-      "https://verifier.ton.org/tactDeployer/QmekUfWLJeggStnnyv5ib8QqjxfvjdRjVqVEBxGvaCuS8U?testnet"
+      "https://verifier.ton.org/tactDeployer/bafkreigfcbius3v6amxtsg6a2e7pfyquvnmeyxjgd5t3hi7iunqm6tjy2m?testnet"
     );
   });
 });

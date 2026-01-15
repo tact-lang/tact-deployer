@@ -2,9 +2,14 @@ import FormData from "form-data";
 import axios from "axios";
 import * as z from "zod";
 
-const configScheme = z.object({
+const verifierEntryScheme = z.object({
+  id: z.string(),
+  network: z.enum(["mainnet", "testnet"]),
   backends: z.array(z.string()),
-  backendsTestnet: z.array(z.string()),
+});
+
+const configScheme = z.object({
+  verifiers: z.array(verifierEntryScheme),
 });
 
 const configUrl =
@@ -14,11 +19,20 @@ function randomFromArray<T>(arr: T[]) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-async function fetchBackend(testnet?: boolean) {
-  let parsed = configScheme.parse(
+async function fetchBackend(verifier: string, testnet?: boolean) {
+  const parsed = configScheme.parse(
     await axios.get(configUrl).then((_res) => _res.data)
   );
-  return randomFromArray(testnet ? parsed.backendsTestnet : parsed.backends);
+  const network = testnet ? "testnet" : "mainnet";
+  const entry = parsed.verifiers.find(
+    (v) => v.id === verifier && v.network === network
+  );
+  if (!entry) {
+    throw new Error(
+      `Verifier "${verifier}" not found for network "${network}"`
+    );
+  }
+  return randomFromArray(entry.backends);
 }
 
 // Returns a URL for deployment
@@ -26,9 +40,13 @@ export async function prepareTactDeployment(args: {
   pkg: Buffer;
   data: Buffer;
   testnet?: boolean;
+  verifier?: string;
 }): Promise<string> {
   // Fetch backend
-  const backend = await fetchBackend(args.testnet);
+  const backend = await fetchBackend(
+    args.verifier ?? "verifier.ton.org",
+    args.testnet
+  );
 
   // Upload files
   const form = new FormData();
