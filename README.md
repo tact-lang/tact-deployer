@@ -1,3 +1,6 @@
+> [!CAUTION]
+> Tact is deprecated. Please learn the [Tolk language](https://docs.ton.org/tolk/overview) instead.
+
 # Tact Deployer
 
 A lib to prepare deployment of a tact package
